@@ -1,0 +1,5 @@
+Chalk
+npm install chalk@4.1.2
+
+Inquirer
+npm install inquirer@8.1.2
