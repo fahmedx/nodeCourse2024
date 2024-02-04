@@ -1,0 +1,2 @@
+Rodar npm -v e node -v
+Verificar no site do npm se é a versão mais atual

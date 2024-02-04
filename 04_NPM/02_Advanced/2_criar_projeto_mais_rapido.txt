@@ -1,0 +1,1 @@
+Ao invés de usar somente npm init, utilizar o sufixo -y ou -yes
