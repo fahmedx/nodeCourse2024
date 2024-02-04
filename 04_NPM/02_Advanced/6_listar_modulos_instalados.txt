@@ -1,0 +1,3 @@
+npm list
+npm list --depth=0 (Raiz das dependencias)
+npm list -g lista todas globais

@@ -1,0 +1,2 @@
+npm cache verify (mostra o que tem no cache do server)
+npm cache clean --force

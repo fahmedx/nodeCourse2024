@@ -1,0 +1,1 @@
+npm search <nome_pacote> (caso seja nome composto, usar aspas duplas)
