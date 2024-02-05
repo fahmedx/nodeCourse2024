@@ -94,8 +94,7 @@ function deposit(){
             message: 'Digite a quantidade que deseja depositar:'
         }]).then((answer) =>{
             const amount = answer['amount']
-            addAmount(accountName,amount)
-            operation()
+            addAmount(accountName,amount)            
         })
         .catch((err) => console.log(err))
     })
@@ -173,7 +172,7 @@ function addAmount(accountName, amount){
         },
     )
     console.log(chalk.bgGreen.black(`Depósito de R$${amount} realizado com sucesso, seu novo saldo é de: R$${accountData.balance}`))
-    
+    operation()
 }
 
 function subtractAmount(accountName, amount){
