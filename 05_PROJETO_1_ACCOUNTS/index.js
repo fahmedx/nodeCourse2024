@@ -121,8 +121,7 @@ function takeOut(){
             message: 'Digite a quantidade que deseja sacar:'
         }]).then((answer) =>{
             const amount = answer['amount']
-            subtractAmount(accountName,amount)
-            operation()
+            subtractAmount(accountName,amount)            
         })
         .catch((err) => console.log(err))
     })
@@ -183,6 +182,10 @@ function subtractAmount(accountName, amount){
         console.log(chalk.bgRed.black('Ocorreu um erro, tente novamente mais tarde!'))
         return takeOut()
     }
+    if(accountData.balance < amount){
+        console.log(chalk.bgRed.black('Valor Indisponível!'))
+        return takeOut()
+    }        
     accountData.balance = parseFloat(accountData.balance) - parseFloat(amount) 
     fs.writeFileSync(
         `accounts/${accountName}.json`,
@@ -192,7 +195,7 @@ function subtractAmount(accountName, amount){
         },
     )
     console.log(chalk.bgGreen.black(`Saque de R$${amount} realizado com sucesso, seu novo saldo é de: R$${accountData.balance}`))
-    
+    operation()   
 }
 
 function getAccount(accountName){
