@@ -1,0 +1,19 @@
+{
+  "name": "11_projeto_final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./serve.js localhost 5000"
+  },
+  "keywords": [],
+  "author": "fahmedx <fahmesalimdx@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
