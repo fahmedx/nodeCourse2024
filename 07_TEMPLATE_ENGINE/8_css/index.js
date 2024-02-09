@@ -10,6 +10,8 @@ const hbs = exphbs.create({
 app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
+app.use(express.static('public'))
+
 app.get('/dashboards', (req, res) => {
     const sequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     res.render('dashboards', { sequence })
