@@ -171,7 +171,7 @@ function addAmount(accountName, amount){
             console.log(err)
         },
     )
-    console.log(chalk.bgGreen.black(`Depósito de R$${amount} realizado com sucesso, seu novo saldo é de: R$${accountData.balance}`))
+    /*console.log(chalk.bgGreen.black(`Depósito de R$${amount} realizado com sucesso, seu novo saldo é de: R$${accountData.balance}`))*/
     operation()
 }
 
