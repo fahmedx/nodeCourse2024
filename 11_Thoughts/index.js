@@ -11,6 +11,12 @@ const conn = require('./db/conn')
 const Tought = require('./models/Tought')
 const User = require('./models/User')
 
+const toughtsRoutes = require('./routes/toughtsRoutes')
+const authRoutes = require('./routes/authRoutes')
+
+
+const toughtController = require('./controllers/toughtController')
+
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
 
@@ -52,6 +58,12 @@ app.use((req, res, next) => {
 
     next()
 })
+
+//routes
+app.use('/toughts', toughtsRoutes)
+app.use('/', authRoutes)
+
+app.get('/', toughtController.showToughts)
 
 conn
 .sync()
