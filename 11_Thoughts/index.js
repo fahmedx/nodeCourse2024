@@ -13,8 +13,6 @@ const User = require('./models/User')
 
 const toughtsRoutes = require('./routes/toughtsRoutes')
 const authRoutes = require('./routes/authRoutes')
-
-
 const toughtController = require('./controllers/toughtController')
 
 app.engine('handlebars', exphbs.engine())
@@ -52,12 +50,13 @@ app.use(flash())
 app.use(express.static('public'))
 
 app.use((req, res, next) => {
-    if(req,session.userid){
+    if(req.session.userid){
         res.locals.session = req.session
     }
 
     next()
 })
+
 
 //routes
 app.use('/toughts', toughtsRoutes)
