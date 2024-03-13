@@ -16,6 +16,12 @@ app.use(express.static('public'))
 
 // Routes
 
+const UserRoutes = require('./routes/UserRoutes')
+
+app.use('/users', UserRoutes)
+
+
+
 app.get('/', (req,res)=>{
     res.status(200).json({message: 'Primeira rota criada com sucesso'})
 })
