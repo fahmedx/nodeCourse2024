@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const createUserToken = require('../helpers/create-user-token')
 const getToken = require('../helpers/get-token')
+const getUserByToken = require('../helpers/get-user-by-token')
 
 module.exports = class UserController {
     static async register(req,res){
@@ -130,4 +131,94 @@ module.exports = class UserController {
 
         res.status(200).send(currentUser)
     }
+
+    static async getUserById(req, res){
+        const id = req.params.id
+        const user = await User.findById(id).select('-password')
+
+        if (!user){
+            res.status(422).json({
+                message: 'Usuário não encontrado'
+            })
+            return
+        }
+
+        res.status(200).json({user})
+    }   
+
+    static async editUser(req,res) {
+    
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        if (!user){
+            res.status(422).json({
+                message: 'Por favor utilize outro e-mail!'
+            })
+            return
+        }
+
+        const {name, email, phone, password, confirmPassword} = req.body
+
+        let image = ''
+
+        if(!name){
+            res.status(422).json({message: 'O parâmetro nome é obrigatório.'})
+            return
+        }
+
+        user.name = name
+
+        if(!email){
+            res.status(422).json({message: 'O parâmetro email é obrigatório.'})
+            return
+        }
+
+        const userExists = await User.findOne({email: email})
+
+        if (user.email !== email && userExists){
+            res.status(422).json({
+                message: 'Usuário não encontrado!'
+            })
+            return
+        }
+
+        user.email = email
+
+        if(!phone){
+            res.status(422).json({message: 'O parâmetro telefone é obrigatório.'})
+            return
+        }
+
+        user.phone = phone
+
+        if (password !== confirmPassword){
+            res.status(422).json({message: 'Senha e Confirmação não batem.'})
+            return
+        }else if (password === confirmPassword && password != null){
+
+            const salt = await bcrypt.genSalt(12)     
+            const passwordHash = await bcrypt.hash(password,salt)    
+
+            user.password = passwordHash
+        }
+
+        try {
+            await User.findOneAndUpdate(
+                {_id: user._id},
+                {$set:user},
+                {new:true}
+            )            
+
+            res.status(200).json({
+                message: "Usuário atualizado com sucesso!"
+            })
+        } catch (error) {
+            res.status(500).json({message:err})
+            return
+        }
+
+    }
+
+
 }
