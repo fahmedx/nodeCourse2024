@@ -102,8 +102,10 @@ module.exports = class UserController {
             return
         }
 
+        const token = await createUserToken(user,req,res)
+
         try {
-            res.status(200).json({message: "Usuário logado com sucesso"})
+            res.status(200).json({message: "Usuário logado com sucesso.", token, user: user._id})
         } catch (error) {
             res.status(500).json({message:error})
         }
